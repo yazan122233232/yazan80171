@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>إرسال رسالة إلى الإيميل</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Cairo', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at top, #1f1c2c, #2c2c54);
+      overflow: hidden;
+      color: #f0f0f0;
+    }
+
+    .form-container {
+      backdrop-filter: blur(20px);
+      background-color: rgba(30, 30, 30, 0.7);
+      border-radius: 20px;
+      padding: 30px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    h2 {
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: #b197fc;
+      text-shadow: 0 0 10px #a855f7;
+    }
+
+    textarea {
+      width: 100%;
+      height: 160px;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-size: 16px;
+      font-family: 'Cairo', sans-serif;
+      background-color: #222;
+      color: #f0f0f0;
+      resize: none;
+      outline: none;
+      box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+      transition: box-shadow 0.3s;
+    }
+
+    textarea:focus {
+      box-shadow: 0 0 10px #8a2be2;
+    }
+
+    button {
+      margin-top: 20px;
+      background: linear-gradient(45deg, #8a2be2, #4a00e0);
+      color: #fff;
+      border: none;
+      padding: 15px 30px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button:hover {
+      background: linear-gradient(45deg, #6a0dad, #4a00e0);
+      box-shadow: 0 0 30px rgba(138, 43, 226, 0.7);
+      transform: scale(1.05);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    button span {
+      position: relative;
+      z-index: 1;
+    }
+
+    button::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      animation: pulse 2s infinite;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0% { transform: rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: rotate(360deg) scale(1.2); opacity: 0; }
+    }
+  </style>
+  <script>
+    (function() {
+      emailjs.init("8_NecXdeh7uXHN0on");
+    })();
+
+    function sendEmail() {
+      const message = document.getElementById("message").value;
+
+      if (message.trim() === "") {
+        alert("❗ الرجاء كتابة رسالة قبل الإرسال.");
+        return;
+      }
+
+      emailjs.send("service_xpybfgi", "template_2ann2zo", {
+        message: message,
+        to_email: "yazanhuseen8@gmail.com"
+      }).then(function(response) {
+        alert("✅ تم إرسال الرسالة بنجاح!");
+        document.getElementById("message").value = "";
+      }, function(error) {
+        alert("❌ حدث خطأ أثناء الإرسال: " + JSON.stringify(error));
+      });
+    }
+  </script>
+</head>
+<body>
+  <div class="form-container">
+    <h2>🚀 أرسل رسالتك الآن</h2>
+    <textarea id="message" placeholder="اكتب رسالتك هنا..."></textarea><br>
+    <button onclick="sendEmail()"><span>إرسال ✉️</span></button>
+  </div>
+</body>
+</html>
